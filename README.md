@@ -39,7 +39,7 @@ mysql -u root -p
 After entering password: 
 
 ```bash
-CREATE DATABASE books;
+CREATE DATABASE bookstore;
 ```
 
 Then it is needed to clone the project:
