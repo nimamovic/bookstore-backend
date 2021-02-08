@@ -1,4 +1,4 @@
-# bookstoreApp
+# bookstore-backend
 
 Short coding assignment, where we implemented a REST API to work with books and authors. We implemented a simple CRUD (Create, Read, Update, Delete) API connecting **mysql** local database.
 
