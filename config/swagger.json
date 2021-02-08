@@ -1,0 +1,810 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Bookstore Express API with Swagger",
+        "version": "0.1.0",
+        "description":
+          "This is a simple CRUD API application made with Express and documented with Swagger"
+    },
+    "host": "localhost:9000",
+    "paths": {
+      "/books": {
+        "get": {
+          "tags": [
+            "books"
+          ],
+          "summary": "Get all books",
+          "description": "",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Book"
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          }
+        },
+        "post": {
+            "tags": [
+              "books"
+            ],
+            "summary": "Post book",
+            "description": "",
+            "consumes": [
+                 "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "parameters": [
+                {
+                  "in": "body",
+                  "name": "body",
+                  "description": "Book object that needs to be added to the store",
+                  "required": true,
+                  "schema": {
+                    "$ref": "#/definitions/Book"
+                  }
+                },
+                {
+                    "in": "header",
+                    "name": "x-access-token",
+                    "schema":{
+                        "type": "apiKey",
+                        "format": "string",
+                        "required": true
+                    }
+                }
+              ],
+            
+            "responses": {
+              "201": {
+                "description": "Success",
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Book"
+                  }
+                }
+              },
+              "400": {
+                "description": "Bad Request"
+              }
+            }
+          }
+        },
+        "/books/{id}": {
+            "get": {
+              "tags": [
+                "books"
+              ],
+              "summary": "Get book",
+              "description": "",
+              "consumes": [
+                "application/json"
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "id",
+                  "description": "Books ISBN",
+                  "required": true
+                }
+            ],
+              "responses": {
+                "200": {
+                  "description": "Success",
+                  "schema": {
+                    "type": "object",
+                    "items": {
+                      "$ref": "#/definitions/Book"
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Bad Request"
+                }
+              }
+            },
+            "delete": {
+                "tags": [
+                  "books"
+                ],
+                "summary": "Delete book",
+                "description": "",
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                  {
+                    "in": "path",
+                    "name": "id",
+                    "description": "Books ISBN",
+                    "required": true
+                  },
+                  {
+                    "in": "header",
+                    "name": "x-access-token",
+                    "schema":{
+                        "type": "apiKey",
+                        "format": "string",
+                        "required": true
+                    }
+                }
+              ],
+                "responses": {
+                  "200": {
+                    "description": "Success"
+                  },
+                  "404": {
+                    "description": "Bad Request"
+                  }
+                }
+              },
+              "put": {
+                "tags": [
+                  "books"
+                ],
+                "summary": "Edit book",
+                "description": "",
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                    {
+                    "in": "path",
+                    "name": "id",
+                    "description": "Books ISBN",
+                    "required": true
+                    },
+                    {
+                    "in": "header",
+                    "name": "x-access-token",
+                    "schema":{
+                        "type": "apiKey",
+                        "format": "string",
+                        "required": true
+                        }
+                    },
+                    {
+                    "in": "body",
+                    "name": "body",
+                    "description": "Book object edit",
+                    "required": false,
+                    "schema": {
+                      "$ref": "#/definitions/Book"
+                    }
+                    }
+              ],
+                "responses": {
+                  "200": {
+                    "description": "Success"
+                  },
+                  "404": {
+                    "description": "Bad Request"
+                  }
+                }
+              }
+        },
+        "/books/{id}/authors": {
+            "get": {
+              "tags": [
+                "book's authors"
+              ],
+              "summary": "Get list of book's authors",
+              "description": "",
+              "consumes": [
+                "application/json"
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "id",
+                  "description": "Books ISBN",
+                  "required": true
+                }
+            ],
+              "responses": {
+                "200": {
+                  "description": "Success",
+                  "schema": {
+                    "type": "object",
+                    "items": {
+                      "$ref": "#/definitions/Author"
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Bad Request"
+                }
+              }
+            },
+            "post": {
+                "tags": [
+                  "book's authors"
+                ],
+                "summary": "Post book's author",
+                "description": "",
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                    {
+                    "in": "path",
+                    "name": "id",
+                    "description": "Books ISBN",
+                    "required": true
+                    },
+                    {
+                    "in": "header",
+                    "name": "x-access-token",
+                    "schema":{
+                        "type": "apiKey",
+                        "format": "string",
+                        "required": true
+                        }
+                    },
+                    {
+                    "in": "body",
+                    "name": "author",
+                    "description": "Book object edit",
+                    "required": true,
+                    "schema":{
+                        "format": "string",
+                        "required": "book",
+                        "properties": {
+                            "author": {
+                              "type": "string",
+                              "example": "70919c5c-6850-11eb-b6bf-1cc99bac8dbb"
+                            }
+                        }
+                        }
+                    }
+              ],
+                "responses": {
+                  "200": {
+                    "description": "Success"
+                  },
+                  "404": {
+                    "description": "Bad Request"
+                  }
+                }
+              }
+        },
+        "/books/{idBook}/authors/{idAuthor}": {
+            "delete": {
+                "tags": [
+                  "book's authors"
+                ],
+                "summary": "Delete book's author",
+                "description": "",
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                  {
+                    "in": "path",
+                    "name": "idBook",
+                    "description": "Books ISBN",
+                    "required": true
+                  },
+                  {
+                    "in": "path",
+                    "name": "idAuthor",
+                    "description": "Authors ID",
+                    "required": true
+                  },
+                  {
+                    "in": "header",
+                    "name": "x-access-token",
+                    "schema":{
+                        "type": "apiKey",
+                        "format": "string",
+                        "required": true
+                    }
+                }
+              ],
+                "responses": {
+                  "200": {
+                    "description": "Success"
+                  },
+                  "404": {
+                    "description": "Bad Request"
+                  }
+                }
+              }
+        },
+        "/authors": {
+          "get": {
+            "tags": [
+              "authors"
+            ],
+            "summary": "Get all authors",
+            "description": "",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ],
+            "responses": {
+              "200": {
+                "description": "Success",
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Author"
+                  }
+                }
+              },
+              "400": {
+                "description": "Bad Request"
+              }
+            }
+          },
+          "post": {
+              "tags": [
+                "authors"
+              ],
+              "summary": "Post author",
+              "description": "",
+              "consumes": [
+                   "application/json"
+              ],
+              "produces": [
+                  "application/json"
+              ],
+              "parameters": [
+                  {
+                    "in": "body",
+                    "name": "body",
+                    "description": "Author object that needs to be added to the store",
+                    "required": true,
+                    "schema": {
+                      "$ref": "#/definitions/Author"
+                    }
+                  },
+                  {
+                      "in": "header",
+                      "name": "x-access-token",
+                      "schema":{
+                          "type": "apiKey",
+                          "format": "string",
+                          "required": true
+                      }
+                  }
+                ],
+              
+              "responses": {
+                "201": {
+                  "description": "Success",
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/Author"
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request"
+                }
+              }
+            }
+          },
+          "/authors/{id}": {
+              "get": {
+                "tags": [
+                  "authors"
+                ],
+                "summary": "Get author",
+                "description": "",
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                  {
+                    "in": "path",
+                    "name": "id",
+                    "description": "Author's ID",
+                    "required": true
+                  }
+              ],
+                "responses": {
+                  "200": {
+                    "description": "Success",
+                    "schema": {
+                      "type": "object",
+                      "items": {
+                        "$ref": "#/definitions/Author"
+                      }
+                    }
+                  },
+                  "404": {
+                    "description": "Bad Request"
+                  }
+                }
+              },
+              "delete": {
+                  "tags": [
+                    "authors"
+                  ],
+                  "summary": "Delete author",
+                  "description": "",
+                  "consumes": [
+                    "application/json"
+                  ],
+                  "produces": [
+                    "application/json"
+                  ],
+                  "parameters": [
+                    {
+                      "in": "path",
+                      "name": "id",
+                      "description": "Author's ID",
+                      "required": true
+                    },
+                    {
+                      "in": "header",
+                      "name": "x-access-token",
+                      "schema":{
+                          "type": "apiKey",
+                          "format": "string",
+                          "required": true
+                      }
+                  }
+                ],
+                  "responses": {
+                    "200": {
+                      "description": "Success"
+                    },
+                    "404": {
+                      "description": "Bad Request"
+                    }
+                  }
+                },
+                "put": {
+                  "tags": [
+                    "authors"
+                  ],
+                  "summary": "Edit author",
+                  "description": "",
+                  "consumes": [
+                    "application/json"
+                  ],
+                  "produces": [
+                    "application/json"
+                  ],
+                  "parameters": [
+                      {
+                      "in": "path",
+                      "name": "id",
+                      "description": "Author's ID",
+                      "required": true
+                      },
+                      {
+                      "in": "header",
+                      "name": "x-access-token",
+                      "schema":{
+                          "type": "apiKey",
+                          "format": "string",
+                          "required": true
+                          }
+                      },
+                      {
+                      "in": "body",
+                      "name": "body",
+                      "description": "Author object edit",
+                      "required": false,
+                      "schema": {
+                        "$ref": "#/definitions/Author"
+                      }
+                      }
+                ],
+                  "responses": {
+                    "200": {
+                      "description": "Success"
+                    },
+                    "404": {
+                      "description": "Bad Request"
+                    }
+                  }
+                }
+          },
+          "/authors/{id}/books": {
+              "get": {
+                "tags": [
+                  "author's books"
+                ],
+                "summary": "Get list of author's books",
+                "description": "",
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                  {
+                    "in": "path",
+                    "name": "id",
+                    "description": "Autor's ID",
+                    "required": true
+                  }
+              ],
+                "responses": {
+                  "200": {
+                    "description": "Success",
+                    "schema": {
+                      "type": "object",
+                      "items": {
+                        "$ref": "#/definitions/Author"
+                      }
+                    }
+                  },
+                  "404": {
+                    "description": "Bad Request"
+                  }
+                }
+              },
+              "post": {
+                  "tags": [
+                    "author's books"
+                  ],
+                  "summary": "Post author's book",
+                  "description": "",
+                  "consumes": [
+                    "application/json"
+                  ],
+                  "produces": [
+                    "application/json"
+                  ],
+                  "parameters": [
+                      {
+                      "in": "path",
+                      "name": "id",
+                      "description": "Author's ID",
+                      "required": true
+                      },
+                      {
+                      "in": "header",
+                      "name": "x-access-token",
+                      "schema":{
+                          "type": "apiKey",
+                          "format": "string",
+                          "required": true
+                          }
+                      },
+                      {
+                      "in": "body",
+                      "name": "book",
+                      "description": "Book object edit",
+                      "required": true,
+                      "schema":{
+                          "format": "string",
+                          "required": "book",
+                          "properties": {
+                              "author": {
+                                "type": "string",
+                                "example": "978-1-56619-909-4"
+                              }
+                          }
+                          }
+                      }
+                ],
+                  "responses": {
+                    "200": {
+                      "description": "Success"
+                    },
+                    "404": {
+                      "description": "Bad Request"
+                    }
+                  }
+                }
+          },
+          "/authors/{idAuthor}/books/{idBook}": {
+              "delete": {
+                  "tags": [
+                    "author's books"
+                  ],
+                  "summary": "Delete author's book",
+                  "description": "",
+                  "consumes": [
+                    "application/json"
+                  ],
+                  "produces": [
+                    "application/json"
+                  ],
+                  "parameters": [
+                    {
+                      "in": "path",
+                      "name": "idAuthor",
+                      "description": "Author's ID",
+                      "required": true
+                    },
+                    {
+                      "in": "path",
+                      "name": "idBook",
+                      "description": "Book's ISBN",
+                      "required": true
+                    },
+                    {
+                      "in": "header",
+                      "name": "x-access-token",
+                      "schema":{
+                          "type": "apiKey",
+                          "format": "string",
+                          "required": true
+                      }
+                  }
+                ],
+                  "responses": {
+                    "200": {
+                      "description": "Success"
+                    },
+                    "404": {
+                      "description": "Bad Request"
+                    }
+                  }
+                }
+          },
+        "/login": {
+            "post": {
+                "tags": [
+                    "login"
+                    ],
+                "summary": "Log in",
+                "description": "Get token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                    "in": "body",
+                    "name": "body",
+                    "description": "Log in is necessary for authentication",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/User"
+                    }
+                    }
+                ],
+                
+                "responses": {
+                "201": {
+                    "description": "Success",
+                    "schema": {
+                    "type": "string"
+                    }
+                },
+                "400": {
+                    "description": "Bad Request"
+                    }
+               }
+            }
+        }
+    },
+    "definitions": {
+        "Book": {
+          "type": "object",
+          "required": [
+            "isbn",
+            "title",
+            "published",
+            "pages",
+            "image"
+          ],
+          "properties": {
+            "isbn": {
+              "type": "string",
+              "example": "23-3213243567"
+            },
+            "title": {
+                "type": "string",
+                "example": "My First Book"
+              },
+            "published": {
+              "type": "number",
+              "example": 2018
+            },
+            "pages": {
+              "type": "number",
+              "example": 200
+            },
+            "image": {
+              "type": "string",
+              "example": "nsnns"
+            },
+            "authors": {
+                "type": "array",
+                "example": ["isbn1","isbn2"]
+              }
+          }
+        },
+        "User": {
+            "type": "object",
+            "required": [
+              "email",
+              "password"
+            ],
+            "properties": {
+              "email": {
+                "type": "string",
+                "example": "user@email.com"
+              },
+              "password": {
+                  "type": "string",
+                  "example": "password"
+                }
+            }
+        },
+        "Author": {
+            "type": "object",
+            "required": [
+              "first_name",
+              "last_name",
+              "dob",
+              "image",
+              "books"
+            ],
+            "properties": {
+                "first_name": {
+                    "type": "string",
+                    "example": "FirstName"
+                  },
+                "last_name": {
+                  "type": "string",
+                  "example": "LastName"
+                },
+                "dob": {
+                  "type": "string",
+                  "example": "1970-08-26 23:00:00"
+                },
+                "image": {
+                  "type": "string",
+                  "example": "nsnns"
+                },
+                "books": {
+                    "type": "array",
+                    "example": ["id1","id2"]
+
+              }
+            }
+        }
+    }
+  }
