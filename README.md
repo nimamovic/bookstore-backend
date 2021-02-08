@@ -45,7 +45,7 @@ CREATE DATABASE bookstore;
 Then it is needed to clone the project:
 
 ```bash
-git clone 
+git clone https://github.com/nimamovic/bookstore-backend.git
 ```
 
 and we can install packages from **package.json**.
@@ -67,15 +67,7 @@ After that we set configuration in *knexfile.js*:
         password : 'root',
         database : 'bookstore',
         port: 3306
-      },
-      migrations: {
-        tableName: 'knex_migrations',
-        directory: `${ __dirname }/knex/migrations`
-      },
-      seeds: {
-        directory: `${ __dirname }/knex/seeds/development`
       }
-    }
 }
 ```
 
@@ -116,3 +108,9 @@ npm run serve
 ```
 
 On the http://localhost:9000/api-docs/ we have **SWAGGER UI** with all our requests and responses with their content.
+
+To run e2e tests use the script:
+
+```bash
+npm test
+```
