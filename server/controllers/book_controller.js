@@ -31,11 +31,16 @@ const postBook = async (req, res, next) => {
   }
 }
 
-const postBookAuthor = async (req,res,next) =>{
+const postBooksAuthor = async (req,res,next) =>{
+  const bookId = req.params.idBook;
+  const authorId = req.body.author;
   try{
-    const book = await creatBookAuthors(req.body.author,req.params.idBook,res);
-    if(!book) res.status(404).send();
-    res.status(200).send();
+    const allredyExistsBookAuthor = await AuthorBook.find({bookId: bookId, authorId: authorId});
+    if(allredyExistsBookAuthor.length == 0){
+      const booksAuthor = await creatBookAuthors(authorId,bookId,res);
+      if(booksAuthor) res.status(200).send();
+    }
+    res.status(404).send();
   }
   catch(e){
     console.log(e);
@@ -133,11 +138,11 @@ const creatBookAuthors = async (authorId, bookId,res) => {
     if(author){
       const book = await Book.findByISBN(bookId);
       if(book){
-        const props = {bookId: bookId, authorId: authorId}
+        const props = {bookId: bookId, authorId: authorId};
         const authorBook = await AuthorBook.create(props);
         if(authorBook) return 1;
       }
-    }
+    } 
     return 0;
   }catch(e){
     console.log(e);
@@ -170,5 +175,5 @@ module.exports = {
   deleteBook,
   deleteBooksAuthor,
   getBooksAuthors,
-  postBookAuthor
+  postBooksAuthor
 }

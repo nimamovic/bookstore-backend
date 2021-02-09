@@ -8,7 +8,7 @@ const {
   deleteBook,
   deleteBooksAuthor,
   getBooksAuthors,
-  postBookAuthor
+  postBooksAuthor
 } = require('../controllers/book_controller');
     
 
@@ -26,6 +26,6 @@ router.route('/books/:idBook/authors/:idAuthor')
 
 router.route('/books/:idBook/authors')
   .get(getBooksAuthors)
-  .post(verifyToken,postBookAuthor);
+  .post(verifyToken,postBooksAuthor);
 
 module.exports = router;

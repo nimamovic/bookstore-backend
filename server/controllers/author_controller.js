@@ -27,13 +27,14 @@ const postAuthor = async (req, res, next) => {
 }
 
 const postAuthorsBook = async (req,res) => {
-  const id = req.params.idAuthor;
+  const authorId = req.params.idAuthor;
+  const bookId = req.body.book;
   try{
-    const author = await Author.find({id});
-    if(author){
-      await createAuthorsBook(req.body.book,id,res);//da li ide await i ostalo?? 
-      res.status(200).send();
-    }else res.status(404).send();
+    const allredyExistsBookAuthor = await AuthorBook.find({bookId: bookId, authorId: authorId});
+    if(allredyExistsBookAuthor.length == 0){
+      const authorsBook = await createAuthorsBook(bookId,authorId,res);
+      if(authorsBook) res.status(200).send();
+    }res.status(404).send();
   
   }
   catch(e){
@@ -139,13 +140,16 @@ const deleteAuthor = async (req, res, next) => {
 }
 const createAuthorsBook = async (bookId,authorId,res) =>{
   try{
-    const book = await Book.findByISBN(bookId);
-    if(book){
-      const propsAuthorBook = {bookId: book[0].isbn, authorId: authorId}
-      const authorBook = await AuthorBook.create(propsAuthorBook);
-      if(!authorBook) res.status(400).send();
-      res.status(200).send();
+    const author = await Author.find({id: authorId});
+    if(author.length != 0){
+      const book = await Book.findByISBN(bookId);
+      if(book.length != 0){
+        const propsAuthorBook = {bookId: book[0].isbn, authorId: authorId};
+        const authorBook = await AuthorBook.create(propsAuthorBook);
+        if(authorBook) return 1;
+      } 
     } 
+    return 0;
   }catch(e){
     console.log(e);
     res.status(400).send(e);

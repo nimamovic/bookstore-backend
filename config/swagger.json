@@ -616,7 +616,7 @@
                           "format": "string",
                           "required": "book",
                           "properties": {
-                              "author": {
+                              "book": {
                                 "type": "string",
                                 "example": "978-1-56619-909-4"
                               }
