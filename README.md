@@ -8,6 +8,7 @@ Short coding assignment, where we implemented a REST API to work with books and 
 * express
 * jsonwebtoken
 * mysql2
+* mysql
 * knex
 * swagger-ui-express
 
@@ -28,7 +29,7 @@ Short coding assignment, where we implemented a REST API to work with books and 
 
 ## Installation
 
-We assume that user has **node.js**, **npm* and **mysql** installed.
+We assume that user has **node.js**, **npm** and **mysql** installed.
 
 First, it is needed to create **mysql** database. There are a lot of different ways to do it such as using **localhost/phpmyadmin**, **DB Sequelize** and different tools. I often do it in terminal:
 
